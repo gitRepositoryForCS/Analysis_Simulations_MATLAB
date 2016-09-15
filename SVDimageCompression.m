@@ -1,0 +1,25 @@
+clear, clc;
+Cimg = imread('Q2image.jpg');
+Cimg = double(Cimg);
+Cimg = Cimg/255;
+Img = sum(Cimg,3)/3;
+[U, S, V] = svd(Img); !
+[m n] = size(Img);
+RImg = zeros(m, n, 4);
+RImg(:,:,1) = Img;
+Img2 = zeros(size(Img));
+Img2 = U(:,1:10)*S(1:10,1:10)*V(:,1:10)';
+E = sum(sum(S(1:10,1:10).*S(1:10,1:10)))/sum(sum(S.*S));
+RImg(:,:,2) = Img2;
+Img3 = zeros(size(Img));
+Img3 = U(:,1:20)*S(1:20,1:20)*V(:,1:20)';
+E = sum(sum(S(1:20,1:20).*S(1:20,1:20)))/sum(sum(S.*S));
+RImg(:,:,3) = Img3;
+Img4 = zeros(size(Img));
+Img4 = U(:,1:50)*S(1:50,1:50)*V(:,1:50)';
+E = sum(sum(S(1:50,1:50).*S(1:50,1:50)))/sum(sum(S.*S));
+RImg(:,:,4) = Img4;
+subplot(2,2,1); axis off; imshow(Img);
+subplot(2,2,2); axis off; imshow(Img2);
+subplot(2,2,3); axis off; imshow(Img3);
+subplot(2,2,4); axis off; imshow(Img4);
